@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>飓风娱乐 年度财务报告</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #1557b0;
+            --success: #34a853;
+            --warning: #fbbc04;
+            --danger: #ea4335;
+            --dark: #202124;
+            --gray: #5f6368;
+            --light: #f8f9fa;
+            --border: #dadce0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a73e8 0%, #667eea 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .header .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            position: relative;
+        }
+        
+        .header .date {
+            font-size: 14px;
+            opacity: 0.7;
+            margin-top: 15px;
+            position: relative;
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 30px 40px;
+            background: #f8f9fa;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .stat-card .icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .stat-card .value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .stat-card .label {
+            font-size: 13px;
+            color: var(--gray);
+        }
+        
+        /* Section */
+        .section {
+            padding: 40px;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        /* Table */
+        .table-wrapper {
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        
+        thead {
+            background: linear-gradient(135deg, #1a73e8 0%, #667eea 100%);
+            color: white;
+        }
+        
+        th {
+            padding: 15px 12px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        th:first-child {
+            text-align: left;
+            border-radius: 10px 0 0 0;
+        }
+        
+        th:last-child {
+            border-radius: 0 10px 0 0;
+        }
+        
+        td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        td:first-child {
+            text-align: left;
+            font-weight: 500;
+        }
+        
+        tbody tr {
+            transition: background 0.2s;
+        }
+        
+        tbody tr:hover {
+            background: #f8f9ff;
+        }
+        
+        tbody tr:nth-child(even) {
+            background: #fafafa;
+        }
+        
+        tbody tr:nth-child(even):hover {
+            background: #f8f9ff;
+        }
+        
+        /* Highlight row */
+        .highlight {
+            background: #e8f5e9 !important;
+            font-weight: 600;
+        }
+        
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid var(--border);
+        }
+        
+        .card h4 {
+            font-size: 16px;
+            color: var(--dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .card ul {
+            list-style: none;
+        }
+        
+        .card li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+        
+        .card li:last-child {
+            border-bottom: none;
+        }
+        
+        .card li .value {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        
+        .tag-success {
+            background: #e6f4ea;
+            color: #34a853;
+        }
+        
+        .tag-warning {
+            background: #fef7e0;
+            color: #fbbc04;
+        }
+        
+        .tag-danger {
+            background: #fce8e6;
+            color: #ea4335;
+        }
+        
+        /* Progress bar */
+        .progress-item {
+            margin-bottom: 15px;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #e8eaed;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-fill.primary { background: linear-gradient(90deg, #1a73e8, #667eea); }
+        .progress-fill.success { background: linear-gradient(90deg, #34a853, #81c995); }
+        .progress-fill.warning { background: linear-gradient(90deg, #fbbc04, #fdce5e); }
+        
+        /* Chart placeholder */
+        .chart-container {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8eaed 100%);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 15px;
+            height: 150px;
+            margin-top: 20px;
+        }
+        
+        .chart-bar {
+            width: 40px;
+            background: linear-gradient(180deg, #1a73e8, #667eea);
+            border-radius: 5px 5px 0 0;
+            position: relative;
+            transition: height 0.5s ease;
+        }
+        
+        .chart-bar span {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            color: var(--gray);
+            white-space: nowrap;
+        }
+        
+        .chart-bar .value {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--primary);
+            white-space: nowrap;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #f8f9fa;
+            padding: 25px 40px;
+            text-align: center;
+            color: var(--gray);
+            font-size: 12px;
+            border-top: 1px solid var(--border);
+        }
+        
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🎪 飓风娱乐</h1>
+            <div class="subtitle">年度财务报告</div>
+            <div class="date">2022 - 2026 | 完整版</div>
+        </div>
+        
+        <!-- Stats Overview -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="icon">💰</div>
+                <div class="value">¥483万</div>
+                <div class="label">5年总收入</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon">📈</div>
+                <div class="value">¥220万</div>
+                <div class="label">5年总利润</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon">📊</div>
+                <div class="value">45.6%</div>
+                <div class="label">平均利润率</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon">⏰</div>
+                <div class="value">¥65万</div>
+                <div class="label">累计未结款</div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="section">
+            
+            <!-- 年度汇总表 -->
+            <h2 class="section-title">历年财务汇总</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>年份</th>
+                            <th>活动数</th>
+                            <th>收入</th>
+                            <th>成本</th>
+                            <th>利润</th>
+                            <th>利润率</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2022</td>
+                            <td>33</td>
+                            <td>¥64.5万</td>
+                            <td>¥25.5万</td>
+                            <td>¥26.3万</td>
+                            <td>40.9%</td>
+                            <td><span class="tag tag-success">已完成</span></td>
+                        </tr>
+                        <tr>
+                            <td>2023</td>
+                            <td>67</td>
+                            <td>¥101.4万</td>
+                            <td>¥53.3万</td>
+                            <td>¥48.1万</td>
+                            <td>47.4%</td>
+                            <td><span class="tag tag-success">已完成</span></td>
+                        </tr>
+                        <tr>
+                            <td>2024</td>
+                            <td>83</td>
+                            <td>¥147.6万</td>
+                            <td>¥79.0万</td>
+                            <td>¥68.6万</td>
+                            <td>46.5%</td>
+                            <td><span class="tag tag-success">已完成</span></td>
+                        </tr>
+                        <tr>
+                            <td>2025</td>
+                            <td>126</td>
+                            <td>¥152.1万</td>
+                            <td>¥81.4万</td>
+                            <td>¥77.3万</td>
+                            <td>50.8%</td>
+                            <td><span class="tag tag-success">已完成</span></td>
+                        </tr>
+                        <tr>
+                            <td>2026</td>
+                            <td>15</td>
+                            <td>¥17.8万</td>
+                            <td>¥4.1万</td>
+                            <td>¥1.6万</td>
+                            <td>8.8%</td>
+                            <td><span class="tag tag-warning">进行中</span></td>
+                        </tr>
+                        <tr class="highlight">
+                            <td><strong>累计</strong></td>
+                            <td><strong>324</strong></td>
+                            <td><strong>¥483.4万</strong></td>
+                            <td><strong>¥243.3万</strong></td>
+                            <td><strong>¥220万</strong></td>
+                            <td><strong>45.6%</strong></td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- 利润趋势图 -->
+            <h2 class="section-title">利润增长趋势</h2>
+            <div class="chart-container">
+                <div class="chart-bars">
+                    <div class="chart-bar" style="height: 50px;"><span>2022</span><div class="value">26万</div></div>
+                    <div class="chart-bar" style="height: 90px;"><span>2023</span><div class="value">48万</div></div>
+                    <div class="chart-bar" style="height: 130px;"><span>2024</span><div class="value">69万</div></div>
+                    <div class="chart-bar" style="height: 150px;"><span>2025</span><div class="value">77万</div></div>
+                    <div class="chart-bar" style="height: 20px;"><span>2026</span><div class="value">2万</div></div>
+                </div>
+            </div>
+            
+            <!-- 2025分析 -->
+            <h2 class="section-title">2025年度分析</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>💰 收入类型 Top 5</h4>
+                    <ul>
+                        <li><span>市集、美陈</span><span class="value">¥228.6万</span></li>
+                        <li><span>市集、人工</span><span class="value">¥166.0万</span></li>
+                        <li><span>市集</span><span class="value">¥98.2万</span></li>
+                        <li><span>音响灯光舞台</span><span class="value">¥85.1万</span></li>
+                        <li><span>市集喷绘美陈</span><span class="value">¥64.3万</span></li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>💸 日常支出</h4>
+                    <ul>
+                        <li><span>采购</span><span class="value">¥22.9万</span></li>
+                        <li><span>餐饮</span><span class="value">¥16.0万</span></li>
+                        <li><span>工资</span><span class="value">¥8.9万</span></li>
+                        <li><span>公关</span><span class="value">¥3.9万</span></li>
+                        <li><span>利息</span><span class="value">¥3.7万</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 2026状况 -->
+            <h2 class="section-title">2026年状况 (1-3月)</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>📋 收支概况</h4>
+                    <ul>
+                        <li><span>活动收入</span><span class="value">¥17.8万</span></li>
+                        <li><span>活动成本</span><span class="value">¥4.1万</span></li>
+                        <li><span>日常支出</span><span class="value">¥3.8万</span></li>
+                        <li><span style="color: #ea4335; font-weight: bold;">净收益</span><span class="value" style="color: #ea4335;">¥-2.2万</span></li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>⚠️ 待处理事项</h4>
+                    <ul>
+                        <li><span>未结款活动</span><span class="value">11个</span></li>
+                        <li><span>待收金额</span><span class="value">¥13.8万</span></li>
+                        <li><span>欠供应商</span><span class="value">¥11.7万</span></li>
+                        <li><span>欠艺人</span><span class="value">¥6.2万</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 未结款统计 -->
+            <h2 class="section-title">历年未结款统计</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>年份</th>
+                            <th>未结款金额</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>2023</td><td>¥1.7万</td><td><span class="tag tag-success">已结清</span></td></tr>
+                        <tr><td>2024</td><td>¥30.6万</td><td><span class="tag tag-danger">待催收</span></td></tr>
+                        <tr><td>2025</td><td>¥18.5万</td><td><span class="tag tag-warning">催收中</span></td></tr>
+                        <tr><td>2026</td><td>¥13.8万</td><td><span class="tag tag-warning">催收中</span></td></tr>
+                        <tr class="highlight"><td><strong>累计</strong></td><td><strong>¥64.6万</strong></td><td>-</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- 财务总结 -->
+            <h2 class="section-title">📌 财务总结</h2>
+            <div class="card-grid">
+                <div class="card" style="border-left: 4px solid #34a853;">
+                    <h4>✅ 优势</h4>
+                    <ul>
+                        <li>收入持续增长，5年增长136%</li>
+                        <li>2025利润率突破50%创新高</li>
+                        <li>业务多元化，抗风险能力强</li>
+                        <li>客户稳定，合作关系良好</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-left: 4px solid #ea4335;">
+                    <h4>⚠️ 风险</h4>
+                    <ul>
+                        <li>累计未结款¥64.6万偏高</li>
+                        <li>负债较重，需关注资金流</li>
+                        <li>餐饮支出占比过高(26.7%)</li>
+                        <li>利息支出较大，需优化融资</li>
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>🏠 小阿咪的财务 · AI财务管家</p>
+            <p>报告生成时间：2026年3月21日</p>
+        </div>
+    </div>
+</body>
+</html>
